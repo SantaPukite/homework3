@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FizzBuzz Div Generator</title>
+    <style>
+        body {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #controls {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        #controls input {
+            margin: 5px;
+            padding: 5px;
+            width: 60px;
+        }
+        #controls button {
+            margin: 5px;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+            color: white;
+        }
+        #controls .generate {
+            background-color: #28a745;
+        }
+        #controls .clear {
+            background-color: #dc3545;
+        }
+        main {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            max-width: 1200px;
+        }
+        main div {
+            width: calc(10% - 10px);
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-weight: bold;
+        }
+        .fizzbuzz {
+            background-color: #ff0000d4;
+            color: #ffffff;
+        }
+        .fizz {
+            background-color: #00ff00d3;
+            color: #000000;
+        }
+        .buzz {
+            background-color: #0000ffd3;
+            color: #ffffff;
+        }
+        .normal {
+            background-color: #ffff00d4;
+            color: #000000;
+        }
+        @media (max-width: 600px) {
+            main div {
+                width: calc(100% - 10px);
+            }
+        }
+        @media (min-width: 600px) and (max-width: 900px) {
+            main div {
+                width: calc(20% - 10px);
+            }
+        }
+        @media (min-width: 900px) {
+            main div {
+                width: calc(10% - 10px);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="controls">
+    <label for="startValue">Start Value:</label>
+    <input type="number" id="startValue" value="1">
+    <label for="endValue">End Value:</label>
+    <input type="number" id="endValue" value="100">
+    <label for="fizzValue">Fizz Value:</label>
+    <input type="number" id="fizzValue" value="3">
+    <label for="buzzValue">Buzz Value:</label>
+    <input type="number" id="buzzValue" value="5">
+    <button class="generate" onclick="generateDivs()">Generate Divs</button>
+    <button class="clear" onclick="clearDivs()">Clear Divs</button>
+</div>
+
+<main></main>
+
+<script>
+    function generateDivs() {
+        const main = document.querySelector('main');
+        const startValue = parseInt(document.getElementById('startValue').value);
+        const endValue = parseInt(document.getElementById('endValue').value);
+        const fizzValue = parseInt(document.getElementById('fizzValue').value);
+        const buzzValue = parseInt(document.getElementById('buzzValue').value);
+
+        clearDivs();
+
+        for (let i = startValue; i <= endValue; i++) {
+            const div = document.createElement('div');
+            div.id = `myid${i}`;
+
+            if (i % fizzValue === 0 && i % buzzValue === 0) {
+                div.className = 'fizzbuzz';
+                div.innerText = `${i} FizzBuzz`;
+            } else if (i % fizzValue === 0) {
+                div.className = 'fizz';
+                div.innerText = `${i} Fizz`;
+            } else if (i % buzzValue === 0) {
+                div.className = 'buzz';
+                div.innerText = `${i} Buzz`;
+            } else {
+                div.className = 'normal';
+                div.innerText = i;
+            }
+
+            main.appendChild(div);
+        }
+    }
+
+    function clearDivs() {
+        const main = document.querySelector('main');
+        main.innerHTML = '';
+    }
+</script>
+
+</body>
+</html>
